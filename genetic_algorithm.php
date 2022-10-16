@@ -159,6 +159,6 @@ for ($i=0;$i<$population_count;$i++) {
 $func_res1=$func_res;
 $func_res2=$func_res;
 $population=genetic($population, $population_count, $func_res1, $func_res2, $mutations_count);
-echo "result: ";
+echo "result: \n";
 echo "особь с минимальным результатом: ".$population['population_worst'][0]."   y=".func($population['population_worst'][0])."\n";
 echo "особь с максимальным результатом: ".$population['population_best'][$population_count-1]."   y=".func($population['population_best'][$population_count-1])."\n";
