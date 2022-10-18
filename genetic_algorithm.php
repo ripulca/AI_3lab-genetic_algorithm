@@ -13,51 +13,33 @@ function func($x){  //x[-10;53]
 function mutation($crossed, $bit_amount=6){
     $mutated=random_int(0, count($crossed)-1);
     $genetic_num=random_int(0, $bit_amount-1);
-    // $temp=to_dec($crossed);
-    
-    // for ($j=0;$j<count($temp);$j++) {
-    //     $temp_func_res[$j]=func($temp[$j]);
-    // }
-    // $max_i=array_keys($temp_func_res, max($temp_func_res));
-    // $min_i=array_keys($temp_func_res, min($temp_func_res));
-    // while($mutated==$max_i||$mutated==$min_i){
-    //     $mutated=random_int(0, count($crossed)-1);
-    // }
     $crossed[$mutated][$genetic_num]= $crossed[$mutated][$genetic_num] === '0' ? '1' : '0';
 
     return $crossed;
 }
 
 function to_binary($number, $bit_amount=6){
-    // echo "number: $number \n";
     $binary=decbin($number);
     if($number>=0){
-    // echo "binary start $binary \n";
     if(strlen($binary)<$bit_amount){
             $to_add=$bit_amount-strlen($binary);
-            // echo "to_add: $to_add\n";
             $binary=str_repeat("0", $to_add).$binary;
         }
     }else{
         $binary=substr($binary,strlen($binary)-6);
     }
-    // echo "binary end $binary \n";
 
     return $binary;
 }
 
 function to_dec($binary){
-    // var_dump($binary);
     foreach ($binary as &$bin) {
-        // var_dump($bin);
         $bin=bindec($bin);
     }
     return $binary;
 }
 
 function crossover($parents, $bit_amount=6){
-    // echo "parents";
-    // var_dump($parents);
     $tmp =array();
     for($i=0;$i<count($parents);$i++) {
         $next=$i+1;
@@ -67,18 +49,14 @@ function crossover($parents, $bit_amount=6){
         $crossing=random_int(1, $bit_amount-1);
         $tmp[]=substr($parents[$i], 0, $crossing).substr($parents[$next], $crossing);
     }
-    // echo "parents1:\n"; var_dump($parents);
     $parents=array_merge($parents, $tmp);
-    // echo "parents2:\n"; var_dump($parents);
     return $parents;
 }
 
 function sort_yabs($population, $func_res){
-    // var_dump($population);
    for($i=0;$i<count($func_res);$i++){
         for($j=0;$j<count($func_res);$j++){
             if ($i!=$j) {
-                // var_dump(abs($func_res[$i]), $func_res[$j]);
                 if ($func_res[$j]>$func_res[$i]) {
                     $tmp=$func_res[$i];
                     $func_res[$i]=$func_res[$j];
@@ -90,7 +68,6 @@ function sort_yabs($population, $func_res){
             }                
         }
    }
-//    var_dump($population);
    return $population;
 };
 
@@ -137,14 +114,8 @@ function genetic($population, $population_count, $func_res1, $func_res2, $mutati
         }
     }
 
-    // echo "before:\n";
-    // get_population($population_best);
-    // get_population($population_worst);
     array_multisort($func_res1, $population_best);
     array_multisort($func_res2, $population_worst);
-    // echo "after:\n";
-    // get_population($population_best);
-    // get_population($population_worst);
     return [
         'population_best' => $population_best,
         'population_worst' => $population_worst,
